@@ -5,9 +5,9 @@ import (
 )
 
 type Change struct {
-	date    time.Time
-	group   string
-	lessons string
-	teacher string
-	room    string
+	Date    time.Time
+	Group   string
+	Lessons string
+	Teacher string
+	Room    string
 }
