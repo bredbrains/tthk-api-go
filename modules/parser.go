@@ -8,7 +8,7 @@ import (
 
 const tableSelector string = "table"
 
-// Wrapper for scraping web pages with internal logic
+// Scrape Wrapper for scraping web pages with internal logic
 func Scrape(url string) *goquery.Document {
 	var err error
 	var res *http.Response
