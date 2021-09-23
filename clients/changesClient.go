@@ -5,6 +5,8 @@ import (
 	"strings"
 	"time"
 	"tthkAPI/models"
+	"tthkAPI/models/enums"
+	"tthkAPI/models/enums/estonianEnums"
 	"tthkAPI/modules"
 	"tthkAPI/utils/globals"
 )
@@ -26,12 +28,12 @@ func (c *ChangesClient) processChangesTables(document *goquery.Document) {
 	document.Find("table").Each(c.processChangeTable)
 }
 
-func (c *ChangesClient) processChangeTable(index int, table *goquery.Selection) {
+func (c *ChangesClient) processChangeTable(_ int, table *goquery.Selection) {
 	cells := table.Find("tr")
 	cells.Each(c.processChangeTableRow)
 }
 
-func (c *ChangesClient) processChangeTableRow(index int, tableRow *goquery.Selection) {
+func (c *ChangesClient) processChangeTableRow(_ int, tableRow *goquery.Selection) {
 	change := models.Change{}
 	if tableRow.Find("td").Eq(1).Text() == "Kuupäev" {
 		return
@@ -50,7 +52,7 @@ func (c *ChangesClient) processChangeTableRow(index int, tableRow *goquery.Selec
 		case 3:
 			change.Lessons = cellText
 		case 4:
-			change.Teacher = cellText
+			change = determineStatusText(change, cellText)
 		case 5:
 			change.Room = cellText
 		}
@@ -59,4 +61,20 @@ func (c *ChangesClient) processChangeTableRow(index int, tableRow *goquery.Selec
 	if change.Validate() {
 		c.changes = append(c.changes, change)
 	}
+}
+
+func determineStatusText(change models.Change, text string) models.Change {
+	text = strings.TrimSpace(text)
+	if text == estonianEnums.DroppedOut {
+		change.Status = enums.DroppedOut
+	} else if text == estonianEnums.Lunch {
+		change.Status = enums.Lunch
+	} else if text == estonianEnums.Homework {
+		change.Status = enums.Homework
+	} else if text == estonianEnums.Scheduled {
+		change.Status = enums.Scheduled
+	} else {
+		change.Teacher = text
+	}
+	return change
 }
