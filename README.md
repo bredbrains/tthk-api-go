@@ -1,6 +1,6 @@
 # TTHK API Server
 
-TTHK API implementation on Golang with Fiber REST API framework.
+TTHK API on Golang language powered by Fiber framework. 
 
 ## Build Setup
 
