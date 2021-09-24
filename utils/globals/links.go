@@ -1,8 +1,10 @@
 package globals
 
+import "github.com/bredbrains/tthk-api-go/utils"
+
 type StaticLink string
 
 const (
-	Changes = "https://www.tthk.ee/tunniplaani-muudatused/"
-	Groups  = "https://www.tthk.ee/oppetoo/tunniplaan/ruhmajuhatajad/"
+	Changes = utils.SchoolBaseUrl + "/tunniplaani-muudatused/"
+	Groups  = utils.SchoolBaseUrl + "/oppetoo/tunniplaan/ruhmajuhatajad/"
 )
