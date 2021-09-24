@@ -7,4 +7,5 @@ type User struct {
 	ID          int `gorm:"PrimaryKey"`
 	VKontakteID int
 	TelegramID  int
+	DiscordID   int
 }
