@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/bredbrains/tthk-api-go/views"
 	"github.com/gofiber/fiber/v2"
 	"log"
-	"tthkAPI/views"
 )
 
 func main() {

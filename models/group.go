@@ -1,6 +1,6 @@
 package models
 
-import "tthkAPI/models/enums"
+import "github.com/bredbrains/tthk-api-go/models/enums"
 
 type Group struct {
 	code       string

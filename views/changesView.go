@@ -1,8 +1,8 @@
 package views
 
 import (
+	"github.com/bredbrains/tthk-api-go/clients"
 	"github.com/gofiber/fiber/v2"
-	"tthkAPI/clients"
 )
 
 func Changes(c *fiber.Ctx) error {

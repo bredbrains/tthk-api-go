@@ -2,13 +2,13 @@ package clients
 
 import (
 	"github.com/PuerkitoBio/goquery"
+	"github.com/bredbrains/tthk-api-go/models"
+	"github.com/bredbrains/tthk-api-go/models/enums"
+	"github.com/bredbrains/tthk-api-go/models/enums/estonianEnums"
+	"github.com/bredbrains/tthk-api-go/modules"
+	"github.com/bredbrains/tthk-api-go/utils/globals"
 	"strings"
 	"time"
-	"tthkAPI/models"
-	"tthkAPI/models/enums"
-	"tthkAPI/models/enums/estonianEnums"
-	"tthkAPI/modules"
-	"tthkAPI/utils/globals"
 )
 
 type ChangesClient struct {
