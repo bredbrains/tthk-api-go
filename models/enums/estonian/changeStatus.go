@@ -1,4 +1,4 @@
-package estonianEnums
+package estonian
 
 const (
 	Lunch      string = "lõuna"

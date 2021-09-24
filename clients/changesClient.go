@@ -4,7 +4,8 @@ import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/bredbrains/tthk-api-go/models"
 	"github.com/bredbrains/tthk-api-go/models/enums"
-	"github.com/bredbrains/tthk-api-go/models/enums/estonianEnums"
+	"github.com/bredbrains/tthk-api-go/models/enums/estonian"
+	"github.com/bredbrains/tthk-api-go/models/enums/selectors"
 	"github.com/bredbrains/tthk-api-go/modules"
 	"github.com/bredbrains/tthk-api-go/utils/globals"
 	"strings"
@@ -25,20 +26,20 @@ func (c *ChangesClient) Parse() []models.Change {
 }
 
 func (c *ChangesClient) processChangesTables(document *goquery.Document) {
-	document.Find("table").Each(c.processChangeTable)
+	document.Find(selectors.Table).Each(c.processChangeTable)
 }
 
 func (c *ChangesClient) processChangeTable(_ int, table *goquery.Selection) {
-	cells := table.Find("tr")
+	cells := table.Find(selectors.TableRow)
 	cells.Each(c.processChangeTableRow)
 }
 
 func (c *ChangesClient) processChangeTableRow(_ int, tableRow *goquery.Selection) {
 	change := models.Change{}
-	if tableRow.Find("td").Eq(1).Text() == "Kuupäev" {
+	if tableRow.Find(selectors.TableCell).Eq(1).Text() == "Kuupäev" {
 		return
 	}
-	tableRow.Find("td").Each(func(index int, tableCell *goquery.Selection) {
+	tableRow.Find(selectors.TableCell).Each(func(index int, tableCell *goquery.Selection) {
 		var err error
 		cellText := strings.TrimSpace(tableCell.Text())
 		switch index {
@@ -64,14 +65,13 @@ func (c *ChangesClient) processChangeTableRow(_ int, tableRow *goquery.Selection
 }
 
 func determineStatusText(change models.Change, text string) models.Change {
-	text = strings.TrimSpace(text)
-	if text == estonianEnums.DroppedOut {
+	if text == estonian.DroppedOut {
 		change.Status = enums.DroppedOut
-	} else if text == estonianEnums.Lunch {
+	} else if text == estonian.Lunch {
 		change.Status = enums.Lunch
-	} else if text == estonianEnums.Homework {
+	} else if text == estonian.Homework {
 		change.Status = enums.Homework
-	} else if text == estonianEnums.Scheduled {
+	} else if text == estonian.Scheduled {
 		change.Status = enums.Scheduled
 	} else {
 		change.Teacher = text

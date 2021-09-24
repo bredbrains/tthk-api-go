@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-const tableSelector string = "table"
-
 // Scrape Wrapper for scraping web pages with internal logic
 func Scrape(url string) *goquery.Document {
 	var err error
