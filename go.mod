@@ -1,4 +1,4 @@
-module tthkAPI
+module github.com/bredbrains/tthk-api-go
 
 go 1.17
 
